@@ -10,8 +10,11 @@
       <h1>new Hello world</h1>
       <span>Teste</span>
 
-      <Button />
+      <Button title="Entrar" />
+      <Button title="Cadastrar" />
+      <Button title= "Voltar"/>
+      <Button title="Login" loading/>
     </Container>
-  )
+  ); /*<Button title="Login" loading/>     mesma coisa que escrever loading={true}*/
  }
  
