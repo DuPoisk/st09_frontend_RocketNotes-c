@@ -14,5 +14,43 @@ export const Container = styled.header `
 
   padding: 0 80px;
 
-  background: orange;
+  /*background: orange;*/
+`;
+
+export const Profile = styled.div`
+  display: flex;
+  align-items: center;
+
+  >  img { /* > garante que vou estilizar a imagem de ntro de Profilee não outras imagens*/
+    width: 56px;
+    height: 56px;
+    border-radius: 50%; /* para a imagem ficar arredondada*/
+  } 
+
+  > div {
+    display: flex;
+    flex-direction: column; /*para colocar uma linha abaixo da outra */
+    margin-left: 16px;
+    line-height: 24px;
+
+    span {
+      font-size: 14px;
+      color: ${({ theme }) => theme.COLORS.GRAY_100}
+    }
+
+    strong {
+      font-size: 18px;
+      color: ${({ theme }) => theme.COLORS.WHITE}
+    }
+  }
+`;
+
+export const Logout = styled.button`
+  border: none;
+  background: none;
+
+  > svg{
+    color: ${({theme}) => theme.COLORS.GRAY_100};
+    font-size: 36px;
+  }
 `;
