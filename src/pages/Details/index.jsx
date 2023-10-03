@@ -1,10 +1,11 @@
  //import { Fragment } from "react";
  import { Container, Links } from "./styles"
 
- import { Header } from "../../components/Header";
- import { Button } from "../../components/Button";
- import { Section } from "../../components/Section";
  import { Tag } from "../../components/Tag";
+ import { Button } from "../../components/Button";
+ import { Header } from "../../components/Header";
+ import { Section } from "../../components/Section";
+ import { ButtonText } from "../../components/ButtonText";
  
  /* a função deve ter o mesmo nome do arquivo; todo componente deve ter o nome inicado com letra Maiúscula*/
  export function Details() {
@@ -13,6 +14,8 @@
       <Header/>
       <h1>new Hello world</h1>
       <span>Teste</span>
+
+      <ButtonText title="Excluir nota"/>
 
       <Section title="Links úteis"> 
         <Links>
