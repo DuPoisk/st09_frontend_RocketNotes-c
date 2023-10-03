@@ -1,8 +1,9 @@
- import { Fragment } from "react"
- import { Container } from "./styles"
+ //import { Fragment } from "react";
+ import { Container, Links } from "./styles"
 
- import { Header } from "../../components/Header"
- import { Button } from "../../components/Button"
+ import { Header } from "../../components/Header";
+ import { Button } from "../../components/Button";
+ import { Section } from "../../components/Section";
  
  /* a função deve ter o mesmo nome do arquivo; todo componente deve ter o nome inicado com letra Maiúscula*/
  export function Details() {
@@ -12,10 +13,16 @@
       <h1>new Hello world</h1>
       <span>Teste</span>
 
-     
-      <Button title= "Voltar"/>
-      
+      <Section title="Links úteis"> 
+        <Links>
+          <li><a href="#">https://www.rocketseat.com.br/</a></li>
+          <li><a href="#">https://www.rocketseat.com.br/</a></li>
+        </Links>
+      </Section>
+
+      <Button title= "Voltar"/>      
     </Container>
   ); /*<Button title="Login" loading/>     mesma coisa que escrever loading={true}*/
+    /* title é a propriedade comum. O childrem é o que estiver dentro do section. children não é passado como uma propriedade comum.*/
  }
  
