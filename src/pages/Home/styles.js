@@ -55,14 +55,16 @@ export const Menu = styled.ul`
 
 export const Search = styled.div`
   grid-area: search;
-
   padding: 64px 64px 0;
 `;
 
 
 export const Content = styled.div`
   grid-area: content;
-  background: blue;
+  padding: 0 64px;
+  overflow-y: auto; /* so aparece o scroll quando tem o overflow. se fosse scroll, apareceria sempre*/
+
+  
 `;
 
 
@@ -79,8 +81,5 @@ export const NewNote = styled.button`
   > svg {
     margin-right: 8px;
   }
-  
-
-
 `;
 
