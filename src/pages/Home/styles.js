@@ -67,6 +67,19 @@ export const Content = styled.div`
 
 export const NewNote = styled.button`
   grid-area: newnote;
-  background: yellow;
+
+  background-color: ${({theme}) => theme.COLORS.ORANGE};
+  border:none; 
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > svg {
+    margin-right: 8px;
+  }
+  
+
+
 `;
 
