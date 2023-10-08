@@ -1,8 +1,10 @@
 import {FiPlus} from "react-icons/fi";
 import {Container, Brand, Menu, Search, Content, NewNote} from "./styles";
 
-import {Header} from "../../components/Header"
-import {ButtonText} from "../../components/ButtonText"
+import {Header} from "../../components/Header";
+import {Input} from "../../components/Input";
+import {ButtonText} from "../../components/ButtonText";
+
 
 export function Home() {
   return(
@@ -22,7 +24,8 @@ export function Home() {
       </Menu>
 
 
-      <Search>        
+      <Search>
+        <Input placeholder="Pesquisar pelo título"/>        
       </Search>
 
       <Content>
@@ -31,7 +34,7 @@ export function Home() {
       <NewNote>
         <FiPlus/>
         Criar nota
-        
+
       </NewNote>
 
 
