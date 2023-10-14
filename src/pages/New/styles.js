@@ -9,6 +9,18 @@ export const Container = styled.div`
   grid-template-areas: 
     "header"
     "content";  
+
+  > main { /*isso serve para eu ativar o scroll somente na parte abaixo do header. ou seja, o header fica fixo */
+    grid-area: content;
+    overflow-y: auto; /*auto não aparece sempre, apenas quando a página exceder o tamanho da tela. Mas se eu usar : scroll, vai aparecer a barra de rolagem, mesmo se a página não precisar*/ 
+  }
+
+
+    .tags {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 `;
 
 export const Form = styled.form`
