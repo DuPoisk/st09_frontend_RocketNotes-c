@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 export const Container = styled.header `
   grid-area: header; /* quando rolar minha tela, quero que fique fixo, então trabalho com  a estratégia de grid area */
 
@@ -17,7 +19,7 @@ export const Container = styled.header `
   /*background: orange;*/
 `;
 
-export const Profile = styled.div`
+export const Profile = styled(Link)`
   display: flex;
   align-items: center;
 
