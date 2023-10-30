@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyles from './styles/global'
 
-import {MyContext} from "./myContext";//para compartilhar o conexto com toda a aplicação
+import {AuthProvider} from "./hooks/auth";//para compartilhar o conexto com toda a aplicação
 
 import theme from "./styles/theme"
 
@@ -12,10 +12,10 @@ import { Routes } from './routes/index.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode >
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <MyContext.Provider value={{email: "rodrigo@email.com"}}>
-        <Routes /> 
-      </MyContext.Provider>
+      <GlobalStyles />  
+      <AuthProvider>
+        <Routes />       
+      </AuthProvider>    
     </ThemeProvider>
   </React.StrictMode>,
 )
