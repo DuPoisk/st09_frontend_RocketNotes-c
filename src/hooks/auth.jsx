@@ -11,7 +11,7 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
       const {user, token} = response.data;
       
       api.defaults.headers.authorization = "Bearer ${token}";
-      setData({user, token});
+      setData({user, token});// atualiza o conteúdo do usuário
 
     }catch (error){ // catch para o caso de não dar certo
       if(error.response){
@@ -23,10 +23,10 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
   }
 
   return(
-    <AuthContext.Provider value={{signIn, user: data.user}}>
+    <AuthContext.Provider value={{signIn, user: data.user}}> 
         {children}
       </AuthContext.Provider>
-  )
+  )// estou compartilhando no contexto o usuário, que é o conteúdo do estado useState
 }
 
 function useAuth(){// useAuth é um hook

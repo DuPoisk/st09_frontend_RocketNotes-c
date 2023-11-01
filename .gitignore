@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+// Lembrar de iniciar o backend com npm start para fazer os testes no beekeeper
+iniciar o front com npm run dev
