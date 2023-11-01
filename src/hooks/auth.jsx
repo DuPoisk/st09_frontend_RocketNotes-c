@@ -1,4 +1,4 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useState, useEffect} from "react";
 import { api } from "../services/api";
 export const AuthContext = createContext({}); // dentro de {} vai um valor default. mas com nao tenho nada para deixar como default, ele permanece vazio, apenas
 
@@ -9,6 +9,9 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
     try { // tratamento de exceções. try para o caso de funcionar
       const response = await api.post("/sessions", {email, password});
       const {user, token} = response.data;
+
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user)); // usei a chave como sendo o nome @rocketnotes, já que é o nome da aplicação
+      localStorage.setItem("@rocketnotes:token", token);
       
       api.defaults.headers.authorization = "Bearer ${token}";
       setData({user, token});// atualiza o conteúdo do usuário
@@ -21,6 +24,21 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
       }
     }
   }
+
+  useEffect (() => {// vai buscar as infos no local Storage
+    const token = localStorage.getItem("@rocketnotes:token");
+    const user = localStorage.getItem("@rocketnotes:user");
+
+    if(token && user){
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      setData({
+        token, 
+        user: JSON.parse(user) // pego os dados do usuário q estão armazenados no formato de texto e voltei para o formato JSON
+      })
+    }
+    
+  }, []);
+
 
   return(
     <AuthContext.Provider value={{signIn, user: data.user}}> 
