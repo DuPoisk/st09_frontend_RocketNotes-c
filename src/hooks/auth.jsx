@@ -25,6 +25,15 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
     }
   }
 
+  function signOut(){ // funcionalidade de logout
+    //preciso remover do local storage as infos guardadas lá, e voltar o estado como objeto vazio
+
+    localStorage.removeItem("@rocketnotes:token");
+    localStorage.removeItem("@rocketnotes:user");
+
+    setData({});
+  }
+
   useEffect (() => {// vai buscar as infos no local Storage
     const token = localStorage.getItem("@rocketnotes:token");
     const user = localStorage.getItem("@rocketnotes:user");
@@ -41,7 +50,7 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
 
 
   return(
-    <AuthContext.Provider value={{signIn, user: data.user}}> 
+    <AuthContext.Provider value={{signIn, user: data.user, signOut}}> 
         {children}
       </AuthContext.Provider>
   )// estou compartilhando no contexto o usuário, que é o conteúdo do estado useState
