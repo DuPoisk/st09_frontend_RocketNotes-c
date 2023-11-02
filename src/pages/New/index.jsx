@@ -14,6 +14,10 @@ export function New(){
   const[links, setLinks] = useState([]); // esse estado guarda todos os links
   const[newLink, setNewLink] = useState(""); // estado para guardar o link adicionado no momento
 
+  const[tags, setTags] = useState([]); // esse estado guarda todas as tags
+  const[newTag, setNewTag] = useState(""); // estado para guardar a tag adicionada no momento
+
+
   function handleAddLink(){
     setLinks(prevState=>[...prevState, newLink]); // acesso o conteúdo anterior ao estado, e monto um novo vetor com tudo o que tinha antes mais o novo link
     setNewLink(""); // "reseto" o estado
@@ -21,6 +25,11 @@ export function New(){
 
   function handleRemoveLink (deleted){
     setLinks(prevState => prevState.filter(link => link !== deleted)); //pega o link e verifica onde no link é diferente do que eu estou deletando. Isso vai remover o link deletado e devolverá uma lista nova sem esse link
+  }
+
+  function handleAddTag(){
+    setTags(prevState => [...prevState, newTag]);
+    setNewTag(""); // "reseto o campo". Depois que eu tiver adicionado a tag, o campo para escrever volta a ficar vazio para eu escrever outra info
   }
 
   return(
@@ -59,8 +68,25 @@ export function New(){
 
           <Section title="Marcadores">
             <div className="tags">
-              <NoteItem value="react"/>              
-              <NoteItem isNew placeholder="Nova tag"/>
+              {// uso chaves porque estou usando uma lista para percorer o conteúdo da variável
+                tags.map((tag, index) => (
+                  <NoteItem 
+                    key={String(index)}
+                    value={tag}
+                    onClick={() => { }}
+                  />             
+
+                ))
+
+              }
+              <NoteItem 
+                isNew 
+                placeholder="Nova tag"
+                onChange={event => setNewTag(event.target.value)}
+                value={newTag}
+                onClick= {handleAddTag}
+              />
+
             </div>
           </Section>
 
