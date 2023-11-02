@@ -19,6 +19,10 @@ export function New(){
     setNewLink(""); // "reseto" o estado
   }
 
+  function handleRemoveLink (deleted){
+    setLinks(prevState => prevState.filter(link => link !== deleted)); //pega o link e verifica onde no link é diferente do que eu estou deletando. Isso vai remover o link deletado e devolverá uma lista nova sem esse link
+  }
+
   return(
     <Container>
       <Header/>
@@ -39,7 +43,7 @@ export function New(){
                 <NoteItem 
                   key={String(index)}
                   value={link}
-                  onClick={() => { }} // é uma função que não faz nada
+                  onClick={() => handleRemoveLink(link)} // uso arrow function pq é uma função com parâmetro. Senão vai ficar tentando executar de forma automática sozinho.
                 />
               ))
             }
