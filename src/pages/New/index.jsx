@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import {Header} from "../../components/Header";
@@ -7,10 +8,17 @@ import {NoteItem} from "../../components/NoteItem";
 import {Section} from "../../components/Section";
 import {Button} from "../../components/Button";
 
-
 import {Container, Form} from "./styles";
 
 export function New(){
+  const[links, setLinks] = useState([]); // esse estado guarda todos os links
+  const[newLink, setNewLink] = useState(""); // estado para guardar o link adicionado no momento
+
+  function handleAddLink(){
+    setLinks(prevState=>[...prevState, newLink]); // acesso o conteúdo anterior ao estado, e monto um novo vetor com tudo o que tinha antes mais o novo link
+    setNewLink(""); // "reseto" o estado
+  }
+
   return(
     <Container>
       <Header/>
@@ -26,8 +34,23 @@ export function New(){
           <Textarea placeholder="Observações"/>
 
           <Section title="Links úteis">
-            <NoteItem value="https://rocketseat.com.br"/>
-            <NoteItem isNew placeholder="Novo link"/>
+            {
+              links.map((link, index) => ( // essa parte serve para que os links salvos fiquem VISÍVEIS assim que eu adicioná-los
+                <NoteItem 
+                  key={String(index)}
+                  value={link}
+                  onClick={() => { }} // é uma função que não faz nada
+                />
+              ))
+            }
+
+            <NoteItem  //serve para adicionar os links efetivamente
+              isNew 
+              placeholder="Novo link" 
+              value={newLink}
+              onChange={event => setNewLink(event.target.value)}
+              onClick={handleAddLink}
+            />
           </Section>
 
           <Section title="Marcadores">
