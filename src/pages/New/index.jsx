@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
 import {Header} from "../../components/Header";
 import {Input} from "../../components/Input";
 import {Textarea} from "../../components/Textarea";
@@ -8,14 +10,21 @@ import {NoteItem} from "../../components/NoteItem";
 import {Section} from "../../components/Section";
 import {Button} from "../../components/Button";
 
+import {api} from "../../services/api";
+
 import {Container, Form} from "./styles";
 
 export function New(){
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
   const[links, setLinks] = useState([]); // esse estado guarda todos os links
   const[newLink, setNewLink] = useState(""); // estado para guardar o link adicionado no momento
 
   const[tags, setTags] = useState([]); // esse estado guarda todas as tags
   const[newTag, setNewTag] = useState(""); // estado para guardar a tag adicionada no momento
+
+  const navigate = useNavigate();
 
 
   function handleAddLink(){
@@ -36,6 +45,18 @@ export function New(){
     setTags(prevState => prevState.filter(tag => tag !== deleted));
   }
 
+  async function handleNewNote(){
+    await api.post("/notes", {
+      title,
+      description,
+      tags,
+      links
+    });
+
+    alert("Nota criada com sucesso!");
+    navigate("/"); // depois da nota cadastrada, levo a navegação para a página inicial(home)
+  }
+
   return(
     <Container>
       <Header/>
@@ -47,8 +68,15 @@ export function New(){
             <Link to="/">voltar</Link>
           </header>
 
-          <Input placeholder="Título"/>
-          <Textarea placeholder="Observações"/>
+          <Input 
+            placeholder="Título"
+            onChange={event => setTitle(event.target.value)}
+          />
+
+          <Textarea 
+            placeholder="Observações"
+            onChange={event => setDescription(event.target.value)}
+          />
 
           <Section title="Links úteis">
             {
@@ -94,7 +122,10 @@ export function New(){
             </div>
           </Section>
 
-          <Button title="Salvar"/>
+          <Button 
+            title="Salvar"
+            onClick={handleNewNote}
+          />
         </Form>
       </main>
     </Container>
