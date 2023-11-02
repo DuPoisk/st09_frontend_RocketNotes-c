@@ -34,8 +34,16 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
     setData({});
   }
 
-  async function updateProfile({user}){
+  async function updateProfile({user, avatarFile}){
     try{
+      if(avatarFile){
+        const fileUploadForm = new FormData(); // preciso enviar como um arquivo e no backend o arquivo está esperando um campo chamado avatar
+        fileUploadForm.append("avatar", avatarFile); //append para adicionar dentro do formulário um avatar
+
+        const response = await api.patch("/users/avatar", fileUploadForm); // faço requisição para users/ avatar, e envio o formulário fileUploadForm
+        user.avatar = response.data.avatar;
+      }
+
       await api.put("/users", user);
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user)); // atualizar os dados do novo usuários no storage e no user. setItem já serve para substituir o conteúdo tb!!
 
