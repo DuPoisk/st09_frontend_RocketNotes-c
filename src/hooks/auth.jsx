@@ -13,7 +13,7 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user)); // usei a chave como sendo o nome @rocketnotes, já que é o nome da aplicação
       localStorage.setItem("@rocketnotes:token", token);
       
-      api.defaults.headers.authorization = "Bearer ${token}";
+      api.defaults.headers.common["Authorization"] = "Bearer ${token}";
       setData({user, token});// atualiza o conteúdo do usuário
 
     }catch (error){ // catch para o caso de não dar certo
@@ -39,7 +39,7 @@ function AuthProvider ({children}) { // children são todas as rotas da aplicaç
     const user = localStorage.getItem("@rocketnotes:user");
 
     if(token && user){
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = "Bearer ${token}";
       setData({
         token, 
         user: JSON.parse(user) // pego os dados do usuário q estão armazenados no formato de texto e voltei para o formato JSON
