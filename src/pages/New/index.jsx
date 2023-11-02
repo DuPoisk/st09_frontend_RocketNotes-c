@@ -32,6 +32,10 @@ export function New(){
     setNewTag(""); // "reseto o campo". Depois que eu tiver adicionado a tag, o campo para escrever volta a ficar vazio para eu escrever outra info
   }
 
+  function handleRemoveTag(deleted){
+    setTags(prevState => prevState.filter(tag => tag !== deleted));
+  }
+
   return(
     <Container>
       <Header/>
@@ -73,7 +77,7 @@ export function New(){
                   <NoteItem 
                     key={String(index)}
                     value={tag}
-                    onClick={() => { }}
+                    onClick={() => handleRemoveTag(tag)}
                   />             
 
                 ))
