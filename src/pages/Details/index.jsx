@@ -22,6 +22,15 @@ import { ButtonText } from "../../components/ButtonText";
     navigate("/");
   }
 
+  async function handleRemove(){
+    const confirm = window.confirm("Deseja realmente remover a nota?")
+
+    if(confirm) {
+      await api.delete(`/notes/ ${params.id}`);
+      navigate("/");
+    }
+  }
+
   useEffect(() => {
     async function fetchNote(){
       const response = await api.get(`/notes/${params.id}`);
@@ -39,7 +48,10 @@ import { ButtonText } from "../../components/ButtonText";
       data && // se tiver conteúdo, mostra o data. Se não tiver, não mostra o data
       <main>
         <Content>
-          <ButtonText title="Excluir nota"/>
+          <ButtonText 
+            title="Excluir nota"
+            onClick={handleRemove}
+          />
 
           <h1>
             {data.title}
@@ -59,7 +71,7 @@ import { ButtonText } from "../../components/ButtonText";
                       <a href={link.url} target="blank"> 
                         {link.url}
                       </a> 
-                    </li> // target="_blank" faz o link abrir em outra aba
+                    </li> // target="blank" faz o link abrir em outra aba
                   )) // preciso sempre colocar uma chave no item
                 } 
                 
