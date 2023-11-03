@@ -1,54 +1,92 @@
- //import { Fragment } from "react";
- import { Container, Links, Content } from "./styles"
+//import { Fragment } from "react";
+import { useState, useEffect } from "react";
+import { Container, Links, Content } from "./styles";
+import { useParams, useNavigate } from "react-router-dom";
 
- import { Tag } from "../../components/Tag";
- import { Button } from "../../components/Button";
- import { Header } from "../../components/Header";
- import { Section } from "../../components/Section";
- import { ButtonText } from "../../components/ButtonText";
+import { api } from "../../services/api";
+
+import { Tag } from "../../components/Tag";
+import { Button } from "../../components/Button";
+import { Header } from "../../components/Header";
+import { Section } from "../../components/Section";
+import { ButtonText } from "../../components/ButtonText";
  
  /* a função deve ter o mesmo nome do arquivo; todo componente deve ter o nome inicado com letra Maiúscula*/
  export function Details() {
+  const [data, setData] = useState(null);
+
+  const params = useParams();
+  const navigate = useNavigate();
+
+  function handleBack(){
+    navigate("/");
+  }
+
+  useEffect(() => {
+    async function fetchNote(){
+      const response = await api.get(`/notes/${params.id}`);
+      setData(response.data);
+    }
+    fetchNote();
+  }, []);
+
   return(
     <Container>
       <Header/>
       
 
+     { // coloco o main entre chaves porque só vai mostrá-lo se existir conteúdo
+      data && // se tiver conteúdo, mostra o data. Se não tiver, não mostra o data
       <main>
         <Content>
           <ButtonText title="Excluir nota"/>
 
           <h1>
-            Introdução ao React
+            {data.title}
           </h1>
 
           <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has 
-          been the industry's standard dummy text ever since the 1500s, when an unknown printer took 
-          a galley of type and scrambled it to make a type specimen book. It has survived not only 
-          five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-           It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum 
-           passages, and more recently with desktop publishing software like Aldus PageMaker including
-            versions of Lorem Ipsum.
-
+            {data.description}
           </p>
 
-          <Section title="Links úteis"> 
-            <Links>
-              <li><a href="https://www.rocketseat.com.br/">https://www.rocketseat.com.br/</a></li>
-              <li><a href="https://www.rocketseat.com.br/">https://www.rocketseat.com.br/</a></li>
-            </Links>
-          </Section>
+          {// chaves pq só vai renderizar essa secção se tiver link ( se tiver conteúdo)
+            data.links &&          
+            <Section title="Links úteis"> 
+              <Links>
+                {
+                  data.links.map(link => (
+                    <li key={String(link.id)}> 
+                      <a href={link.url} target="blank"> 
+                        {link.url}
+                      </a> 
+                    </li> // target="_blank" faz o link abrir em outra aba
+                  )) // preciso sempre colocar uma chave no item
+                } 
+                
+              </Links>
+            </Section>
+          }
 
-          <Section title="Marcadores"> 
-            <Tag title="express" />
-            <Tag title="nodejs" />
-          </Section>
+          {
+            data.tags && // só vou renderizar o section, se existirem tags para serem renderizadas
+            <Section title="Marcadores"> 
+              {
+                data.tags.map(tag => ( 
+                  <Tag 
+                    key={String(tag.id)} // preciso sempre colocar uma chave no item
+                    title={tag.name} 
+                  />
+                ))
+              }
+            </Section>
+          }
 
-          <Button title= "Voltar"/>      
+          <Button title="Voltar" onClick={handleBack} />      
         
         </Content>
       </main>
+      }
+
     </Container>
   ); /*<Button title="Login" loading/>     mesma coisa que escrever loading={true}*/
     /* title é a propriedade comum. O childrem é o que estiver dentro do section. children não é passado como uma propriedade comum.*/

@@ -103,7 +103,7 @@ export function New(){
 
             <NoteItem  //serve para adicionar os links efetivamente
               $isNew 
-              placeholder="Novo link" 
+              placeholder="Novo link (começar com https://)" 
               value={newLink}
               onChange={event => setNewLink(event.target.value)}
               onClick={handleAddLink}
