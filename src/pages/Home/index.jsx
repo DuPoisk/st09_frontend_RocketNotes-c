@@ -10,8 +10,10 @@ import {Section} from "../../components/Section";
 import {ButtonText} from "../../components/ButtonText";
 
 export function Home() {
+  const [search, setSearch] = useState(""); // valor inicial será uma string vazia
   const [tags, setTags] = useState([]);
   const [tagsSelected, setTagsSelected] = useState([]);
+  const [notes, setNotes] = useState([]);
 
   function handleTagSelected(tagName){ // função para lidar com a seleção da tag
     const alreadySelected = tagsSelected.includes(tagName);
@@ -34,6 +36,16 @@ export function Home() {
 
     fetchTags();
   }, []); // deixo o array vazio pois quero buscar as tags apenas 1 vez, e não ficar buscando essa info diversas vezes
+
+
+  useEffect(() => {
+    async function fetchNotes(){
+      const response = await api.get(`/notes?title=${search}&tags=${tagsSelected}`); // acesso o notes, e envio o title através de uma query ( por isso uso o "?"), passo o conteúdo de search para title e o conteúdo de tagsSelected para tags
+      setNotes(response.data);
+    }
+
+    fetchNotes();
+  }, [tagsSelected, search]); //há duas dependências nesse caso. Quando mudar o conteúdo ou do search ou do tagsSelected, o userEfect vai executar novamente
 
   return(
     
@@ -67,18 +79,22 @@ export function Home() {
 
 
       <Search>
-        <Input placeholder="Pesquisar pelo título"/>        
+        <Input 
+          placeholder="Pesquisar pelo título"
+          onChange={() => setSearch(event.target.value)} // o conteúdo da caixa de texto sendo pesquisada pelo título, sendo armazenada pelo nosso estado
+        />        
       </Search>
 
       <Content>
         <Section title="Minhas notas">
-          <Note data={{
-            title: 'React Modal',
-            tags: [
-              {id: '1', name: 'react'},
-              {id: '2', name: 'rocketseat'}
-            ] 
-          }}/>
+          {
+            notes.map(note => (
+              <Note 
+                key={String(note.id)}
+                data={note} 
+              />
+            ))
+          }
         </Section>
       </Content>
 
