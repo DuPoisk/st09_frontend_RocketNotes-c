@@ -85,7 +85,7 @@ export function Home() {
       <Search>
         <Input 
           placeholder="Pesquisar pelo título"
-          onChange={() => setSearch(event.target.value)} // o conteúdo da caixa de texto sendo pesquisada pelo título, sendo armazenada pelo nosso estado
+          onChange={(event) => setSearch(event.target.value)} // o conteúdo da caixa de texto sendo pesquisada pelo título, sendo armazenada pelo nosso estado
         />        
       </Search>
 
