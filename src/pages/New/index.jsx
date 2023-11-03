@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
 import { useNavigate } from "react-router-dom";
 
 import {Header} from "../../components/Header";
@@ -9,6 +7,7 @@ import {Textarea} from "../../components/Textarea";
 import {NoteItem} from "../../components/NoteItem";
 import {Section} from "../../components/Section";
 import {Button} from "../../components/Button";
+import {ButtonText} from "../../components/ButtonText";
 
 import {api} from "../../services/api";
 
@@ -26,6 +25,9 @@ export function New(){
 
   const navigate = useNavigate();
 
+  function handleBack(){
+    navigate(-1);
+  }
 
   function handleAddLink(){
     setLinks(prevState=>[...prevState, newLink]); // acesso o conteúdo anterior ao estado, e monto um novo vetor com tudo o que tinha antes mais o novo link
@@ -66,7 +68,7 @@ export function New(){
     });
 
     alert("Nota criada com sucesso!");
-    navigate("/"); // depois da nota cadastrada, levo a navegação para a página inicial(home)
+    navigate(-1); // depois da nota cadastrada, levo a navegação para a página inicial(home)
   }
 
   return(
@@ -77,7 +79,10 @@ export function New(){
         <Form>
           <header>
             <h1>Criar nota</h1>
-            <Link to="/">voltar</Link>
+            <ButtonText 
+              title="Voltar"
+              onClick={handleBack}
+            />
           </header>
 
           <Input 

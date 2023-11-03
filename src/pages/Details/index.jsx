@@ -19,7 +19,7 @@ import { ButtonText } from "../../components/ButtonText";
   const navigate = useNavigate();
 
   function handleBack(){
-    navigate("/");
+    navigate(-1);
   }
 
   async function handleRemove(){
@@ -27,7 +27,7 @@ import { ButtonText } from "../../components/ButtonText";
 
     if(confirm) {
       await api.delete(`/notes/ ${params.id}`);
-      navigate("/");
+      navigate(-1);
     }
   }
 
