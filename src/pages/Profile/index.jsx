@@ -9,7 +9,6 @@ import {api} from "../../services/api";
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import {ButtonText} from "../../components/ButtonText";
 
 import { Container, Form, Avatar } from "./styles";
 
@@ -33,8 +32,9 @@ export function Profile(){
   }
   
   async function handleUpdate(){
-    const user = {name, email, password: passwordNew, old_password: passwordOld,};
-    await updateProfile({user, avatarFile});
+    const updated = {name, email, password: passwordNew, old_password: passwordOld,};
+    const userUpdated = Object.assign(user, updated);
+    await updateProfile({user: userUpdated, avatarFile});
   }
 
   function handleChangeAvatar(event){
