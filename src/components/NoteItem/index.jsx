@@ -2,24 +2,24 @@ import { FiPlus, FiX} from 'react-icons/fi';
 
 import { Container } from "./styles";
 
-export function NoteItem ({isNew, value, onClick, ...rest}) {
+export function NoteItem ({$isNew, value, onClick, ...rest}) {
   return(
-    <Container isNew={isNew}> 
+    <Container $isNew={$isNew}> 
       <input
       type="text"
       value={value}
-      readOnly={!isNew}
+      readOnly={!$isNew}
       {...rest}
       />
 
-      <button type="button" onClick={onClick} className={isNew ? "button-add" : "button-delete"}>
-        { isNew ? <FiPlus/> : <FiX/>}
+      <button type="button" onClick={onClick} className={$isNew ? "button-add" : "button-delete"}>
+        { $isNew ? <FiPlus/> : <FiX/>}
       </button>
     
     </Container>
   );
-} /*consigo passar uma propriedade (isNew) para dentro do Container que vou usar no styled component, no caso 
-  <Container isNew={isNew}> 
+} /*consigo passar uma propriedade ($isNew) para dentro do Container que vou usar no styled component, no caso 
+  <Container $isNew={$isNew}> 
   </Container>*/
 
   /*readOnly e para evitar que ele seja editado*/
