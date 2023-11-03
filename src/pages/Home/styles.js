@@ -49,8 +49,6 @@ export const Menu = styled.ul`
   > li {
     margin-bottom: 24px;
   }
-
-
 `;
 
 

@@ -11,6 +11,18 @@ import {ButtonText} from "../../components/ButtonText";
 
 export function Home() {
   const [tags, setTags] = useState([]);
+  const [tagsSelected, setTagsSelected] = useState([]);
+
+  function handleTagSelected(tagName){ // função para lidar com a seleção da tag
+    const alreadySelected = tagsSelected.includes(tagName);
+    
+    if(alreadySelected){
+      const filteredTags = tagsSelected.filter(tag => tag !== tagName);
+      setTagsSelected(filteredTags); // retorna todas as tags, menos aquela que eu acabei de desmarcar
+    }else{
+      setTagsSelected(prevState => [...prevState, tagName]); // vai retornar selecionadas todas as tags que foram clicadas
+    }
+  } 
 
 
   useEffect(() => { // obs. useEffect não aceita função assíncrona, por isso devo criar uma função fora dele, que seja async e depois chamá-la dentro do useEffect
@@ -33,13 +45,20 @@ export function Home() {
       <Header/>
 
       <Menu>
-        <li><ButtonText title="Todos" $isactive/></li>
+        <li><ButtonText 
+          title="Todos" 
+          onClick={() => handleTagSelected("all")}
+          $isactive={tagsSelected.length === 0} // verifica o tamanho, e assim, se for zero, verifica que não tem nenhuma coisa dentro do array 
+          />
+        </li>
         {
           tags && tags.map(tag => ( // se existir tags, então o map vai percorrer elas 
             <li key={String(tag.id)}> 
               <ButtonText 
                 title={tag.name} 
-                $isactive
+                onClick={() => handleTagSelected(tag.name)}
+                $isactive={tagsSelected.includes(tag.name)} // se a tag existir la dentro, retorna verdadeiro
+
               />
             </li> 
           ))           
