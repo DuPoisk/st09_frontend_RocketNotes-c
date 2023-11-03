@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {FiPlus} from "react-icons/fi";
 import {Container, Brand, Menu, Search, Content, NewNote} from "./styles";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 import {Note} from "../../components/Note";
 import {Input} from "../../components/Input";
@@ -14,6 +15,8 @@ export function Home() {
   const [tags, setTags] = useState([]);
   const [tagsSelected, setTagsSelected] = useState([]);
   const [notes, setNotes] = useState([]);
+
+  const navigate = useNavigate();
 
   function handleTagSelected(tagName){ // função para lidar com a seleção da tag
     if(tagName === "all"){
@@ -29,6 +32,10 @@ export function Home() {
       setTagsSelected(prevState => [...prevState, tagName]); // vai retornar selecionadas todas as tags que foram clicadas
     }
   } 
+
+  function handleDetails(id){
+    navigate(`/details/${id}`);
+  }
 
 
   useEffect(() => { // obs. useEffect não aceita função assíncrona, por isso devo criar uma função fora dele, que seja async e depois chamá-la dentro do useEffect
@@ -96,6 +103,7 @@ export function Home() {
               <Note 
                 key={String(note.id)}
                 data={note} 
+                onClick={() => handleDetails(note.id)}
               />
             ))
           }
