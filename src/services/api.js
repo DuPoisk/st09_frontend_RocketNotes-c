@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3333"
+  baseURL: "https://rocketnotes-back-end-estudos.onrender.com"
 });
 
-api.get("/users:id");
+//api.get("/users:id");
